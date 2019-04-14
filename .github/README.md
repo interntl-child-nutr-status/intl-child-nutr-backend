@@ -1,46 +1,24 @@
-# lambda-backend-buildweek-skeleton
+# International Child Nutrution Stats
 
 [![standard-readme compliant](https://img.shields.io/badge/standard--readme-OK-green.svg?style=flat-square)](https://github.com/RichardLitt/standard-readme)
-TODO: Put more badges here.
 
-> A backend starter for Lambda Students to use during build week
-
-TODO: Fill out this long description.
+> A project to aid NGOs as they fight child malnutrition internationally
 
 ## Table of Contents
 
 - [Background](#background)
-- [Install](#install)
-- [Usage](#usage)
 - [API](#api)
-- [Maintainers](#maintainers)
-- [Contribute](#contribute)
+- [Maintainer](#maintainer)
 - [License](#license)
 
-## Background
-
-## Install
-
-```
-```
-
-## Usage
-
-```
-```
 
 ## API
 
-## Maintainers
+TODO: Complete API documentation
+
+## Maintainer
 
 [@nickcannariato](https://github.com/nickcannariato)
-[@fractured2k](https://github.com/fractured2k)
-
-## Contribute
-
-PRs accepted.
-
-Small note: If editing the README, please conform to the [standard-readme](https://github.com/RichardLitt/standard-readme) specification.
 
 ## License
 
