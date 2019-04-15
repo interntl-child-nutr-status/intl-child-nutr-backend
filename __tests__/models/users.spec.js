@@ -40,6 +40,22 @@ describe("User DB Model", () => {
       expect(user.password).not.toBeNull();
     });
   });
+  describe("update()", () => {
+    it("Updates the username as expected", async () => {
+      const user = await User.get({ 'u.id': 1 })
+      const updatedUser = await User.update(1, { 'username': "banana" });
+      expect(updatedUser.username).toBe('banana');
+      expect(user.username).not.toBe(updatedUser.username);
+    });
+    it("Updates the password as expected", async () => {
+      const user = await User.get({'u.id': 1})
+      const updatedUser = await User.update(1, { 
+        password: bcrypt.hashSync('banana', 10) 
+      });
+      expect(bcrypt.compareSync('banana', updatedUser.password)).toBeTruthy()
+      expect(bcrypt.compareSync(user.password, updatedUser.password)).not.toBeTruthy();
+    });
+  });
   })
 })
   
