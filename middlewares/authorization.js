@@ -19,7 +19,7 @@ exports.checkToken = (req, res, next) => {
 
 exports.checkRole = (role) => {
   return (req, res, next) => {
-    if (req.decodedJwt.role && req.decodedJwt.role.includes(dept)) {
+    if (req.decodedJwt.role && req.decodedJwt.role.includes(role)) {
       next();
     }
     else {
