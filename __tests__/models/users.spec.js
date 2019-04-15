@@ -26,13 +26,13 @@ describe("User DB Model", () => {
   })
   describe("get()", () => {
     it("Returns an array of users from the database", async () => {
-    const users = await User.get();
-    expect(users).toEqual(expect.any(Array));
+      const users = await User.get();
+      expect(users).toEqual(expect.any(Array));
     });
     it("Returns a specific user when an ID is specified", async () => {
       const user = await User.get({ 'u.id': 1 });
-    expect(user).toEqual(expect.any(Object));
-    expect(user.id).toEqual(1);
+      expect(user).toEqual(expect.any(Object));
+      expect(user.id).toEqual(1);
     });
     it("Returns the username & password for bcrypt comparison", async () => {
       const user = await User.get({ 'u.id': 1});
@@ -56,7 +56,18 @@ describe("User DB Model", () => {
       expect(bcrypt.compareSync(user.password, updatedUser.password)).not.toBeTruthy();
     });
   });
+  describe('remove()', () => {
+    it('Deletes a specified user', async () => {
+      const usersList = await User.get()
+      const userToDelete = await User.get({ 'u.username': 'jaycannariato' })
+      const deletion = await User.remove({ username: 'jaycannariato' });
+      const newUsersList = await User.get();
+  
+      expect(userToDelete.username).toBe('jaycannariato');
+      expect(deletion).toBe(1);
+      expect(newUsersList.length).toBeLessThan(usersList.length);
+      
+    })
   })
-})
   
 });
