@@ -1,7 +1,8 @@
-const User = require('../../models/db/users');
+const bcrypt = require('bcryptjs');
+const db = require('../../models');
+const User = require("../../models/db/users");
 
-describe('User DB Model', () => {
-  it('Returns an array of users from the database', async () => {
+describe("User DB Model", () => {
     const users = await User.get();
     expect(users).toEqual(expect.any(Array));
   })
@@ -11,3 +12,5 @@ describe('User DB Model', () => {
     expect(user.id).toEqual(1);
   })
 })
+  
+});
