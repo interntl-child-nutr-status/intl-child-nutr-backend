@@ -24,13 +24,22 @@ describe("User DB Model", () => {
       expect(ins.country_code).toBe('US');
     });
   })
+  describe("get()", () => {
+    it("Returns an array of users from the database", async () => {
     const users = await User.get();
     expect(users).toEqual(expect.any(Array));
-  })
-  it('Returns a specific user when an ID is specified', async () => {
-    const user = await User.get(1);
+    });
+    it("Returns a specific user when an ID is specified", async () => {
+      const user = await User.get({ 'u.id': 1 });
     expect(user).toEqual(expect.any(Object));
     expect(user.id).toEqual(1);
+    });
+    it("Returns the username & password for bcrypt comparison", async () => {
+      const user = await User.get({ 'u.id': 1});
+      expect(user.username).not.toBeNull();
+      expect(user.password).not.toBeNull();
+    });
+  });
   })
 })
   
