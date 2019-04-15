@@ -5,10 +5,14 @@ exports.up = function(knex) {
       tbl.string("name", 255)
          .unique()
          .notNullable();
+      tbl.string('code', 2)
+         .unique()
+         .notNullable();
     })
     .createTable("communities", tbl => {
       tbl.increments();
       tbl.string("name", 255);
+      tbl.string("city", 255);
       tbl.integer("country_id")
          .references("id")
          .inTable("countries")
@@ -81,6 +85,11 @@ exports.up = function(knex) {
       tbl.integer('role_id')
          .references('id')
          .inTable('roles')
+         .onDelete('CASCADE')
+         .onUpdate('CASCADE')
+      tbl.integer('country_id')
+         .references('id')
+         .inTable('countries')
          .onDelete('CASCADE')
          .onUpdate('CASCADE')
     })
