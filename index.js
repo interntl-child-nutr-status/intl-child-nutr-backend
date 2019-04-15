@@ -19,6 +19,10 @@ app.get("/", (req, res) => {
   res.status(200).json({ message: "Server is up" });
 });
 
+if (require.main == module) {
 app.listen(process.env.PORT, () => {
   console.log(`Dev server is up @ http://localhost:${process.env.PORT}/`);
 });
+} else {
+  module.exports = app;
+}
