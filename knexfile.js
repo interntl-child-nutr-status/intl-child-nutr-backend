@@ -1,31 +1,41 @@
-require('dotenv').config()
+require("dotenv").config();
 
 module.exports = {
   development: {
-    client: 'postgresql',
+    client: "postgresql",
     connection: {
       database: process.env.DEV_DB,
-      user: process.env.DEV_DB_USER,
+      user: process.env.DEV_DB_USER
     },
     pool: {
       min: 2,
       max: 10
     },
     migrations: {
-      tableName: 'knex_migrations',
-      directory: './models/migrations/'
+      tableName: "knex_migrations",
+      directory: "./models/migrations/"
     },
     seeds: {
-      directory: './models/seeds/'
+      directory: "./models/seeds/"
     },
-    useNullAsDefault: true,
+    useNullAsDefault: true
   },
   production: {
-    client: 'postgresql',
+    client: "postgresql",
     connection: {
-      database: process.env.PROD_DB,
-      user: process.env.PROD_USER,
-      password: process.env.PROD_PW,
-    }
+      database: process.env.DATABASE_URL
+    },
+    pool: {
+      min: 2,
+      max: 10
+    },
+    migrations: {
+      tableName: "knex_migrations",
+      directory: "./models/migrations/"
+    },
+    seeds: {
+      directory: "./models/seeds/"
+    },
+    useNullAsDefault: true
   }
 };
