@@ -3,6 +3,10 @@ const db = require('../../models');
 const User = require("../../models/db/users");
 
 describe("User DB Model", () => {
+  beforeAll(async done => {
+    await db.seed.run()
+    done()
+  });
     const users = await User.get();
     expect(users).toEqual(expect.any(Array));
   })
