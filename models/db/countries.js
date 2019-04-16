@@ -11,16 +11,16 @@ const get = () => {
 const getActive = countryCode => {
   if (countryCode) {
     return db("countries AS cn")
-      .select("cn.id as id", "cn.name AS Country")
-      .count("cm.id AS Communities")
+      .select("cn.id as id", "cn.name AS country")
+      .count("cm.id AS communities")
       .join("communities AS cm", { "cm.country_id": "cn.id" })
       .groupBy("cn.id")
       .orderBy("communities", "desc")
       .where({ "cn.code": countryCode });
   }
   return db("countries AS cn")
-    .select("cn.id as id", "cn.name AS Country")
-    .count("cm.id AS Communities")
+    .select("cn.id as id", "cn.name AS country")
+    .count("cm.id AS communities")
     .join("communities AS cm", { "cm.country_id": "cn.id" })
     .groupBy("cn.id")
     .orderBy("communities", "desc");

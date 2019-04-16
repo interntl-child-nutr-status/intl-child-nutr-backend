@@ -1,6 +1,7 @@
 const router = require("express").Router();
 const bcrypt = require("bcryptjs");
 const User = require("../models/db/users");
+const Country = require("../models/db/countries");
 const { generateToken } = require('../helpers/jwt');
 const { checkToken, checkRole } = require('../middlewares/authorization');
 
@@ -31,6 +32,7 @@ router.post("/login", async (req, res) => {
   try {
     const { username, password } = req.body;
     const user = await User.get({ username }).first();
+    const country = await Country.getActive(req.accesCountry)
 
     if (user && bcrypt.compareSync(password, user.password)) {
       const token = generateToken(user);
@@ -38,6 +40,7 @@ router.post("/login", async (req, res) => {
       return res.status(200).json({
         message: `Welcome ${user.username}!`,
         is_admin: user.role.toLowerCase() === 'admin',
+        country: req.accesCountry ? country : null,
         token
       });
     }
