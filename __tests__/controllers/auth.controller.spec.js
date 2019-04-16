@@ -74,5 +74,16 @@ describe("Route /api/auth", () => {
 
       expect(res.status).toBe(401);
     });
+    test("Returns 200 when valid credentials are provided", async () => {
+      const validUser = {
+        username: "johndoe",
+        password: "password",
+      }
+      const res = await request(server)
+        .post("/api/auth/login")
+        .send(validUser)
+
+      expect(res.status).toBe(200);
+    });
   });
 });
