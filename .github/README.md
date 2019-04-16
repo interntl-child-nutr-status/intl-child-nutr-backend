@@ -69,10 +69,12 @@ Returns a list of active countries, defined as a country that has at least one c
 If user is not an Admin, it will return only the country specified in the token provided by the client.
 
 ```json
-{
-    "Communities": "5",
-    "Country": "United States"
-}
+[
+    {
+        "Communities": "5",
+        "Country": "United States"
+    }
+]
 ```
 
 ## Maintainer
