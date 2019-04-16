@@ -9,7 +9,7 @@
   "scripts": {
     "start": "knex seed:run && node index.js",
     "dev": "knex seed:run && nodemon index.js",
-    "test": "jest --watch --verbose",
+    "test": "NODE_ENV=development && jest --watch --verbose",
     "k:migrate": "knex migrate:latest",
     "k:makemigration": "knex migrate:make",
     "k:rollback": "knex migrate:rollback",
