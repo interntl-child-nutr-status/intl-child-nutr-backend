@@ -3,8 +3,8 @@ const db = require("../index");
 const get = () => {
   return db("countries AS cn").select(
     "cn.id AS id",
-    "cn.name AS Country",
-    "cn.code AS Code"
+    "cn.name AS country",
+    "cn.code AS code"
   );
 };
 
@@ -15,7 +15,7 @@ const getActive = countryCode => {
       .count("cm.id AS Communities")
       .join("communities AS cm", { "cm.country_id": "cn.id" })
       .groupBy("cn.id")
-      .orderBy("Communities")
+      .orderBy("communities", "desc")
       .where({ "cn.code": countryCode });
   }
   return db("countries AS cn")
@@ -23,7 +23,7 @@ const getActive = countryCode => {
     .count("cm.id AS Communities")
     .join("communities AS cm", { "cm.country_id": "cn.id" })
     .groupBy("cn.id")
-    .orderBy("Communities");
+    .orderBy("communities", "desc");
 };
 
 module.exports = {
