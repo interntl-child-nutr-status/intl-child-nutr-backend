@@ -30,10 +30,12 @@ const create = community => {
     .then(c => get(community.country_id, c[0].id));
 };
 
+const update = (country_id, id, changes) => {
   return db('communities')
-    .insert(community)
-    .then(_ => get(community.country_id));
-}
+    .update(changes, ['id'])
+    .where({ id })
+    .then(c => get(country_id, c[0].id));
+};
 
 const update = () => {}
 
