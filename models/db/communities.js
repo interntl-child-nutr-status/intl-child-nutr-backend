@@ -24,7 +24,12 @@ const get = (country_id, id) => {
     .where({ "cm.country_id": country_id });
 };
 
-const create = (community) => {
+const create = community => {
+  return db("communities")
+    .insert(community, ['id'])
+    .then(c => get(community.country_id, c[0].id));
+};
+
   return db('communities')
     .insert(community)
     .then(_ => get(community.country_id));
