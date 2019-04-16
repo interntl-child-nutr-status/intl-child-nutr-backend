@@ -9,6 +9,7 @@ exports.checkToken = (req, res, next) => {
         res.status(401).json({ message: "Invalid Credentials" });
       } else {
         req.decodedJwt = decodedToken;
+        req.accessCountry = decodedToken.country_code
         next();
       }
     });
