@@ -51,4 +51,28 @@ describe("Route /api/auth", () => {
       expect(res.status).toBe(201);
     });
   });
+  describe("/login", () => {
+    test("Returns 401 when invalid username is provided", async () => {
+      const invalidUsername = {
+        username: "notvalid",
+        password: "password"
+      };
+      const res = await request(server)
+        .post("/api/auth/login")
+        .send(invalidUsername);
+
+      expect(res.status).toBe(401);
+    });
+    test("Returns 401 when invalid password is provided", async () => {
+      const invalidPassword = {
+        username: "johndoe",
+        password: "notvalid"
+      };
+      const res = await request(server)
+        .post("/api/auth/login")
+        .send(invalidPassword);
+
+      expect(res.status).toBe(401);
+    });
+  });
 });
