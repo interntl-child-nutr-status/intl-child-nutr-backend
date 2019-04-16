@@ -3,8 +3,11 @@
   "version": "0.1.0",
   "description": "A Lambda School build week project",
   "main": "index.js",
+  "engines": {
+    "node": "10.15.x"
+  },
   "scripts": {
-    "start": "node index.js",
+    "start": "knex seed:run && node index.js",
     "dev": "knex seed:run && nodemon index.js",
     "test": "jest --watch --verbose",
     "k:migrate": "knex migrate:latest",
