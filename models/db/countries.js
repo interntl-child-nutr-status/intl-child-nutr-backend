@@ -14,7 +14,7 @@ const getActive = countryCode => {
       .select("cn.id as id", "cn.name AS Country")
       .count("cm.id AS Communities")
       .join("communities AS cm", { "cm.country_id": "cn.id" })
-      .groupBy("cn.name")
+      .groupBy("cn.id")
       .orderBy("Communities")
       .where({ "cn.code": countryCode });
   }
@@ -22,7 +22,7 @@ const getActive = countryCode => {
     .select("cn.id as id", "cn.name AS Country")
     .count("cm.id AS Communities")
     .join("communities AS cm", { "cm.country_id": "cn.id" })
-    .groupBy("cn.name")
+    .groupBy("cn.id")
     .orderBy("Communities");
 };
 
