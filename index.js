@@ -4,8 +4,10 @@ const bodyParser = require("body-parser");
 const cors = require("cors");
 const morgan = require("morgan");
 const helmet = require("helmet");
+const { checkToken } =  require('./middlewares/authorization');
 
 const authRoutes = require('./controllers/auth');
+const countryRoutes = require('./controllers/country');
 
 const app = express();
 
@@ -17,7 +19,8 @@ app.use(helmet());
 app.use(morgan("dev"));
 
 // Routes:
-app.use('/api/auth/', authRoutes);
+app.use('/api/auth', authRoutes);
+app.use('/api/countries', checkToken, countryRoutes)
 
 app.get("/", (req, res) => {
   res.status(200).json({ message: "Server is up" });
