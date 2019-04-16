@@ -8,6 +8,7 @@ const { checkToken } =  require('./middlewares/authorization');
 
 const authRoutes = require('./controllers/auth');
 const countryRoutes = require('./controllers/country');
+const communityRoutes = require('./controllers/community');
 
 const app = express();
 
@@ -20,7 +21,8 @@ app.use(morgan("dev"));
 
 // Routes:
 app.use('/api/auth', authRoutes);
-app.use('/api/countries', checkToken, countryRoutes)
+app.use('/api/countries', checkToken, countryRoutes);
+app.use('/api/communities', checkToken, communityRoutes);
 
 app.get("/", (req, res) => {
   res.status(200).json({ message: "Server is up" });
