@@ -12,8 +12,7 @@ const getActive = countryCode => {
       .join("communities AS cm", { "cm.country_id": "cn.id" })
       .groupBy("cn.name")
       .orderBy("Communities")
-      .where({ "cn.code": countryCode })
-      .first();
+      .where({ "cn.code": countryCode });
   }
   return db("countries AS cn")
     .select("cn.name AS Country")
