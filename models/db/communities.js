@@ -12,7 +12,7 @@ const get = (country_id, id) => {
       .join("countries AS cn", { "cn.id": "cm.country_id" })
       .where({ "cm.id": id })
       .first();
-}
+  }
   return db("communities AS cm")
     .select(
       "cm.id as id",
@@ -37,13 +37,15 @@ const update = (country_id, id, changes) => {
     .then(c => get(country_id, c[0].id));
 };
 
-const update = () => {}
-
-const remove = () => {}
+const remove = (id) => {
+  return db('communities')
+    .where({ id })
+    .del()
+};
 
 module.exports = {
   get,
   create,
   update,
   remove
-}
+};
