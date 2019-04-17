@@ -174,6 +174,50 @@ Returns the deleted community
 }
 ```
 
+#### `GET /api/communities/:country_id/:community_id/children`
+
+Returns an array of children associated with that particular community.
+
+### Children
+
+#### `POST /api/children/`
+
+Creates a new Child record.
+
+Takes a JSON object with the following properties (required properties are marked with an asterisk):
+
+```json
+{
+  "name": String*,
+  "dob": Date (format 'mmddyyyy')*,
+  "height": Integer (inches),
+  "weight": Integer (pounds),
+  "sex": String ('M' | 'F' | 'I')*,
+  "guardian": String,
+  "contact": String ('000-000-0000'),
+  "country_id": Integer (ref: > ID of the country the child is in),
+  "community_id": Integer (ref: > ID of the community the child is in)
+}
+```
+
+If the POST succeeds, it will return the newly created child object.
+
+#### `GET /api/children/:id`
+
+Returns a specific child from the database
+
+#### `PUT /api/children/:id`
+
+Takes a JSON object containing any properties that you would like to alter about the child.
+
+Returns the updated child object from the database.
+
+#### `DELETE /api/children/:id`
+
+Deletes a specified child from the database.
+
+Returns the deleted child object.
+
 ## Maintainer
 
 [@nickcannariato](https://github.com/nickcannariato)
