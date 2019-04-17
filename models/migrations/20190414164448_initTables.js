@@ -2,17 +2,17 @@ exports.up = function(knex) {
   return knex.schema
     .createTable("countries", tbl => {
       tbl.increments();
-      tbl.string("name", 255)
+      tbl.text("name")
          .unique()
          .notNullable();
-      tbl.string("code", 2)
+      tbl.text("code")
          .unique()
          .notNullable();
     })
     .createTable("communities", tbl => {
       tbl.increments();
-      tbl.string("name", 255);
-      tbl.string("city", 255);
+      tbl.text("name");
+      tbl.text("city");
       tbl.integer("country_id")
          .references("id")
          .inTable("countries")
@@ -21,14 +21,19 @@ exports.up = function(knex) {
     })
     .createTable("children", tbl => {
       tbl.increments();
-      tbl.string("name", 255).notNullable();
+      tbl.text("name").notNullable();
       tbl.date("dob").notNullable();
       tbl.integer("age").notNullable();
       tbl.integer("height");
       tbl.integer("weight");
-      tbl.string("sex", 1);
-      tbl.string("primary_parent", 255)
-      tbl.string("address", 255)
+      tbl.text("sex", 1);
+      tbl.text("guardian");
+      tbl.text("contact");
+      tbl.integer("country_id")
+         .references("id")
+         .inTable("countries")
+         .onDelete("CASCADE")
+         .onUpdate("CASCADE")
       tbl.integer("community_id")
          .references("id")
          .inTable("communities")
@@ -46,17 +51,17 @@ exports.up = function(knex) {
     })
     .createTable("roles", tbl => {
       tbl.increments();
-      tbl.string("title", 255)
+      tbl.text("title", 255)
          .unique()
          .notNullable();
-      tbl.string("description", 255);
+      tbl.text("description", 255);
     })
     .createTable("users", tbl => {
       tbl.increments();
-      tbl.string("username", 255)
+      tbl.text("username", 255)
          .unique()
          .notNullable();
-      tbl.string("password", 255).notNullable();
+      tbl.text("password", 255).notNullable();
       tbl.integer("role_id")
          .references("id")
          .inTable("roles")
