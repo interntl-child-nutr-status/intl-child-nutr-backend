@@ -22,25 +22,71 @@ router.route("/").post(async (req, res) => {
   }
 });
 
-router.route("/:community_id").get(async (req, res) => {
-  const { community_id } = req.params;
-  try {
-    const children = await Child.get(community_id, null);
+router.route('/:id')
+  .get(async (req, res) => {
+    const { id } = req.params;
 
-    if (!children.length) {
-      return res.status(404).json({
-        message: "We haven't screened any children in this community yet"
+    try {
+      const child = await Child.get(null, id);
+
+      if (!child) {
+        return res.status(404).json({
+          message: "No child could be found at that ID"
+        })
+      }
+
+      return res.status(200).json(child)
+    }
+    catch (e) {
+      console.error(e);
+      res.status(500).json({
+        message: "Sorry! We ran into a problem getting that record from the database"
+      })
+    }
+  })
+  .put(async (req, res) => {
+    const { id } = req.params;
+    const changes = req.body;
+    
+    if (!changes) {
+      return res.status(400).json({
+        message: "Must include properties you'd like to see changed"
+      })
+    }
+    
+    try {
+      const updatedChild = await Child.update(id, changes);
+
+      return res.status(200).json(updatedChild)
+    }
+    catch (e) {
+      console.error(e);
+      res.status(500).json({
+        message: "Sorry! We ran into a problem getting that record from the database"
+      })
+    }
+  })
+  .delete(async (req, res) => {
+    const { id } = req.params;
+    try {
+      const child = await Child.get(null, id);
+
+      if (!child) {
+        return res.status(404).json({
+          message: "We can't seem to find a child with that ID"
+        });
+      }
+
+      await Child.remove(id);
+
+      return res.status(200).json(child);
+    } 
+    catch (e) {
+      console.error(e);
+      return res.status(500).json({
+        message: "Sorry! We encountered an error while removing that child from our database"
       });
     }
-
-    return res.status(200).json(children);
-  } 
-  catch (e) {
-    console.error(e);
-    return res.status(500).json({
-      message: "Sorry! We encountered an error getting the list of children for that community"
-    });
-  }
-});
+  })
 
 module.exports = router;
