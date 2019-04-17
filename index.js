@@ -10,6 +10,7 @@ const authRoutes = require('./controllers/auth');
 const countryRoutes = require('./controllers/country');
 const communityRoutes = require('./controllers/community');
 const childRoutes = require('./controllers/child');
+const screenRoutes = require('./controllers/screening');
 
 const app = express();
 
@@ -25,6 +26,7 @@ app.use('/api/auth', authRoutes);
 app.use('/api/countries', checkToken, countryRoutes);
 app.use('/api/communities', checkToken, communityRoutes);
 app.use('/api/children', checkToken, childRoutes);
+app.use('/api/screenings', checkToken, screenRoutes);
 
 app.get("/", (req, res) => {
   res.status(200).json({ message: "Server is up" });
