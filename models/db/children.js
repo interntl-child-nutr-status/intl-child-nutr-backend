@@ -13,10 +13,7 @@ const get = (community_id, id) => {
 const create = child => {
   const newChild = {
     ...child,
-    age: moment(Date.now()).diff(
-      moment(child.dob, "MMDDYYYY"),
-      "months"
-    ),
+    age: moment(Date.now()).diff(moment(child.dob, "MMDDYYYY"), "months"),
     dob: moment(child.dob, "MMDDYYYY")
   };
   return db("children")
@@ -25,6 +22,10 @@ const create = child => {
 };
 
 const update = (id, changes) => {
+  if (changes.dob) {
+    changes.dob = moment(changes.dob, "MMDDYYYY");
+    changes.age = moment(Date.now()).diff(moment(changes.dob, "MMDDYYYY"), "months");
+  }
   return db("children")
     .update(changes, ["id"])
     .where({ id })
