@@ -32,7 +32,6 @@ router.post("/login", async (req, res) => {
   try {
     const { username, password } = req.body;
     const user = await User.get({ username }).first();
-    const country = await Country.getActive(user.country_code).first();
 
     if (user && bcrypt.compareSync(password, user.password)) {
       const token = generateToken(user);
@@ -44,14 +43,15 @@ router.post("/login", async (req, res) => {
           country: null,
           token
         });
+      } else {
+        const country = await Country.getActive(user.country_code).first();
+        return res.status(200).json({
+          message: `Welcome ${user.username}!`,
+          is_admin: false,
+          country: { id: country.id, name: country.country },
+          token
+        });
       }
-
-      return res.status(200).json({
-        message: `Welcome ${user.username}!`,
-        is_admin: false,
-        country: { id: country.id, name: country.country },
-        token
-      });
     }
 
     return res.status(401).json({ message: "Invalid Credentials" });
