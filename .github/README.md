@@ -218,6 +218,52 @@ Deletes a specified child from the database.
 
 Returns the deleted child object.
 
+### Screenings
+
+#### `GET /api/screenings/:child_id`
+
+Returns an array of screenings associated with a particular child based on the ID of that child:
+
+```json
+[
+  {
+    "id": 3,
+    "screen_date": "2019-04-17T05:00:00.000Z",
+    "weight": 30,
+    "height": 48
+  }
+]
+```
+
+Will return a 404 if the child is not asociated with any screenings.
+
+#### `POST /api/screenings/:child_id`
+
+Creates a new screening associated with the child at that ID.
+
+Takes a JSON object with the following required properties:
+
+```json
+{
+  "screen_date": "DateTime (ISO string e.g. Date.now()",
+  "height": "Integer (cm)",
+  "weight": "Integer (kg)"
+}
+```
+Returns the newly created screening.
+
+#### `PUT /:child_id/:screening_id`
+
+Takes a json object of changes to a paricular screening.
+
+Returns the newly updated screening.
+
+#### `DELETE /:child_id/:screening_id`
+
+Deletes the screening associated with the `screening_id`.
+
+Returns the deleted screening object.
+
 ## Maintainer
 
 [@nickcannariato](https://github.com/nickcannariato)

@@ -11,7 +11,7 @@ exports.up = function(knex) {
     })
     .createTable("communities", tbl => {
       tbl.increments();
-      tbl.text("name");
+      tbl.text("name").notNullable();
       tbl.text("city");
       tbl.integer("country_id")
          .references("id")
@@ -24,7 +24,7 @@ exports.up = function(knex) {
       tbl.text("name").notNullable();
       tbl.date("dob").notNullable();
       tbl.integer("age").notNullable();
-      tbl.text("sex", 1);
+      tbl.text("sex", 1).notNullable();
       tbl.text("guardian");
       tbl.text("contact");
       tbl.integer("country_id")
@@ -41,8 +41,8 @@ exports.up = function(knex) {
     .createTable("screenings", tbl => {
       tbl.increments();
       tbl.date("screen_date");
-      tbl.integer("height");
-      tbl.integer("weight");
+      tbl.decimal("height");
+      tbl.decimal("weight");
       tbl.integer("child_id")
          .references("id")
          .inTable("children")
@@ -51,17 +51,17 @@ exports.up = function(knex) {
     })
     .createTable("roles", tbl => {
       tbl.increments();
-      tbl.text("title", 255)
+      tbl.text("title")
          .unique()
          .notNullable();
-      tbl.text("description", 255);
+      tbl.text("description");
     })
     .createTable("users", tbl => {
       tbl.increments();
-      tbl.text("username", 255)
+      tbl.text("username")
          .unique()
          .notNullable();
-      tbl.text("password", 255).notNullable();
+      tbl.text("password").notNullable();
       tbl.integer("role_id")
          .references("id")
          .inTable("roles")
