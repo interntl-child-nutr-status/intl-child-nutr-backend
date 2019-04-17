@@ -9,6 +9,7 @@ const { checkToken } =  require('./middlewares/authorization');
 const authRoutes = require('./controllers/auth');
 const countryRoutes = require('./controllers/country');
 const communityRoutes = require('./controllers/community');
+const childRoutes = require('./controllers/child');
 
 const app = express();
 
@@ -23,6 +24,7 @@ app.use(morgan("dev"));
 app.use('/api/auth', authRoutes);
 app.use('/api/countries', checkToken, countryRoutes);
 app.use('/api/communities', checkToken, communityRoutes);
+app.use('/api/children', checkToken, childRoutes);
 
 app.get("/", (req, res) => {
   res.status(200).json({ message: "Server is up" });
