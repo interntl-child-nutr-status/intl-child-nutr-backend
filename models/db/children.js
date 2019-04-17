@@ -12,16 +12,12 @@ const get = (community_id, id) => {
 
 const create = child => {
   const newChild = {
-    name: child.name,
-    contact: child.contact,
-    guardian: child.guardian,
-    community_id: parseInt(child.community),
-    country_id: parseInt(child.country),
+    ...child,
     age: moment(Date.now()).diff(
-      moment(child.dateOfBirth, "MMDDYYYY"),
+      moment(child.dob, "MMDDYYYY"),
       "months"
     ),
-    dob: moment(child.dateOfBirth, "MMDDYYYY")
+    dob: moment(child.dob, "MMDDYYYY")
   };
   return db("children")
     .insert(newChild, ["id"])

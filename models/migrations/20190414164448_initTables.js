@@ -24,8 +24,6 @@ exports.up = function(knex) {
       tbl.text("name").notNullable();
       tbl.date("dob").notNullable();
       tbl.integer("age").notNullable();
-      tbl.integer("height");
-      tbl.integer("weight");
       tbl.text("sex", 1);
       tbl.text("guardian");
       tbl.text("contact");
@@ -43,6 +41,8 @@ exports.up = function(knex) {
     .createTable("screenings", tbl => {
       tbl.increments();
       tbl.date("screen_date");
+      tbl.integer("height");
+      tbl.integer("weight");
       tbl.integer("child_id")
          .references("id")
          .inTable("children")

@@ -3,7 +3,7 @@ const Child = require("../models/db/children");
 
 router.route("/").post(async (req, res) => {
   const child = req.body;
-  if (!child.name || !child.dateOfBirth) {
+  if (!child.name || !child.dob) {
     return res.status(400).json({
       message: "All new child records must have a name & date of birth to be added to the database"
     });
