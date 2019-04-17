@@ -35,6 +35,15 @@ const update = (id, changes) => {
     .then(c => get(c.community_id, c[0].id));
 };
 
+const remove = id => {
+  return db("children")
+    .where({ id })
+    .del();
+};
+
 module.exports = {
   get,
-}
+  create,
+  update,
+  remove
+};
