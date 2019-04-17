@@ -190,8 +190,6 @@ Takes a JSON object with the following properties (required properties are marke
 {
   "name": "String*",
   "dob": "Date (format 'mmddyyyy')*",
-  "height": "Integer (inches)",
-  "weight": "Integer (pounds)",
   "sex": "String ('M' || 'F' || 'I')*",
   "guardian": "String",
   "contact": "String ('000-000-0000')",
