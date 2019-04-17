@@ -1,6 +1,6 @@
 const router = require("express").Router();
 const Community = require("../models/db/communities");
-const Children = require('../models/db/children');
+const Child = require("../models/db/children");
 
 router
   .route("/:country_id")
@@ -53,7 +53,7 @@ router
     const { country_id, id } = req.params;
     try {
       const community = await Community.get(country_id, id);
-      const children = await Children.get(id, null)
+      const children = await Child.get(id, null);
 
       if (!community) {
         return res.status(404).json({
@@ -79,18 +79,17 @@ router
     if (!changes.name.length || !changes.city.length) {
       return res.status(400).json({
         message: "You must include a change to either the name or a city"
-      })
+      });
     }
     try {
-      const update = await Community.update(country_id, id, changes)
+      const update = await Community.update(country_id, id, changes);
 
-      return res.status(200).json(update)
-    }
-    catch (e) {
+      return res.status(200).json(update);
+    } catch (e) {
       console.log(e);
       return res.status(500).json({
         message: "Sorry! We encountered an error updating that Community"
-      })
+      });
     }
   })
   .delete(async (req, res) => {
@@ -101,19 +100,41 @@ router
       if (!community) {
         return res.status(404).json({
           message: "We can't seem to find a community at that ID"
-        })
+        });
       }
 
       await Community.remove(id);
 
       return res.status(200).json(community);
-    }
-    catch (e) {
+    } catch (e) {
       console.error(e);
       return res.status(500).json({
         message: "Sorry! We encountered an error while deleting that Community"
-      })
+      });
     }
-  })
+  });
+
+router.route("/:country_id/:id/children")
+  .get(async (req, res) => {
+    const { id } = req.params;
+    try {
+      const children = await Child.get(id, null);
+
+      if (!children.length) {
+        return res.status(404).json({
+          message: "We haven't screened any children in this community yet"
+        });
+      }
+
+      return res.status(200).json(children);
+    } 
+    catch (e) {
+      console.error(e);
+      return res.status(500).json({
+        message:
+          "Sorry! We encountered an error getting the list of children for that community"
+      });
+    }
+  });
 
 module.exports = router;
