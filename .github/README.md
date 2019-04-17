@@ -136,7 +136,7 @@ Returns a 200 status code and a community object which will also contain an arra
 }
 ```
 
-#### `PUT /api/communities/:country_id/:community_id
+#### `PUT /api/communities/:country_id/:community_id`
 
 Updates a specified community.
 
@@ -159,7 +159,7 @@ If the PUT succeeds, it will return a 200 status and the new Community object:
 }
 ```
 
-#### `DELETE /api/communities/:country_id/:community_id
+#### `DELETE /api/communities/:country_id/:community_id`
 
 Deletes a specified community based on the `:community_id` parameter
 
@@ -188,15 +188,15 @@ Takes a JSON object with the following properties (required properties are marke
 
 ```json
 {
-  "name": String*,
-  "dob": Date (format 'mmddyyyy')*,
-  "height": Integer (inches),
-  "weight": Integer (pounds),
-  "sex": String ('M' | 'F' | 'I')*,
-  "guardian": String,
-  "contact": String ('000-000-0000'),
-  "country_id": Integer (ref: > ID of the country the child is in),
-  "community_id": Integer (ref: > ID of the community the child is in)
+  "name": "String*",
+  "dob": "Date (format 'mmddyyyy')*",
+  "height": "Integer (inches)",
+  "weight": "Integer (pounds)",
+  "sex": "String ('M' || 'F' || 'I')*",
+  "guardian": "String",
+  "contact": "String ('000-000-0000')",
+  "country_id": "Integer (ref: > ID of the country the child is in)",
+  "community_id": "Integer (ref: > ID of the community the child is in)"
 }
 ```
 
