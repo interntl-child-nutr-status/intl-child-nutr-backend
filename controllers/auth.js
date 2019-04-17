@@ -2,10 +2,10 @@ const router = require("express").Router();
 const bcrypt = require("bcryptjs");
 const User = require("../models/db/users");
 const Country = require("../models/db/countries");
-const { generateToken } = require('../helpers/jwt');
-const { checkToken, checkRole } = require('../middlewares/authorization');
+const { generateToken } = require("../helpers/jwt");
+const { checkToken, checkRole } = require("../middlewares/authorization");
 
-router.post("/register", checkToken, checkRole('Admin'), async (req, res) => {
+router.post("/register", checkToken, checkRole("Admin"), async (req, res) => {
   const user = {
     ...req.body,
     password: bcrypt.hashSync(req.body.password, 10)
@@ -15,7 +15,7 @@ router.post("/register", checkToken, checkRole('Admin'), async (req, res) => {
     const newUser = await User.create(user);
 
     return res.status(201).json({
-      message: `${newUser.username} has been successfully created.`,
+      message: `${newUser.username} has been successfully created.`
     });
   } catch (e) {
     console.error(
@@ -32,15 +32,24 @@ router.post("/login", async (req, res) => {
   try {
     const { username, password } = req.body;
     const user = await User.get({ username }).first();
-    const country = await Country.getActive(req.accesCountry)
+    const country = await Country.getActive(user.country_code).first();
 
     if (user && bcrypt.compareSync(password, user.password)) {
       const token = generateToken(user);
-      
+
+      if (user.role.toLowerCase() === "admin") {
+        return res.status(200).json({
+          message: `Welcome ${user.username}!`,
+          is_admin: true,
+          country: null,
+          token
+        });
+      }
+
       return res.status(200).json({
         message: `Welcome ${user.username}!`,
-        is_admin: user.role.toLowerCase() === 'admin',
-        country: req.accesCountry ? country : null,
+        is_admin: false,
+        country: { id: country.id, name: country.country },
         token
       });
     }
