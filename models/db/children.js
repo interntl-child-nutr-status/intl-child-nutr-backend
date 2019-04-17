@@ -27,6 +27,14 @@ const create = child => {
     .insert(newChild, ["id"])
     .then(c => get(c.community_id, c[0].id));
 };
+
+const update = (id, changes) => {
+  return db("children")
+    .update(changes, ["id"])
+    .where({ id })
+    .then(c => get(c.community_id, c[0].id));
+};
+
 module.exports = {
   get,
 }
